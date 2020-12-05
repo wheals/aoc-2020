@@ -1,0 +1,1 @@
+p IO.foreach("input.txt").map { |x| x.gsub(/[FL]/, '0').gsub(/[BR]/, '1').to_i(2) }.max
