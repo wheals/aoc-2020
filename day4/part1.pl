@@ -2,9 +2,8 @@
 
 my $valid = 0;
 $/ = "\n\n";
-my @regexes = qw{ byr: iyr: eyr: hgt: hcl: ecl: pid: };
 while (<>) {
     my $__ = $_;
-	$valid++ if scalar grep($__ =~ $_, @regexes) == scalar @regexes;
+	$valid++ unless scalar grep {$__ !~ $_} qw{ byr: iyr: eyr: hgt: hcl: ecl: pid: };
 }
 print $valid,"\n";
