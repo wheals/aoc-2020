@@ -8,3 +8,4 @@ Day 3: C++
 Day 4: Perl
 Day 5: Ruby
 Day 6: awk
+Day 7: TypeScript
