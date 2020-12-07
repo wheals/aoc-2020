@@ -597,13 +597,8 @@ let bags : Map<string, Array<string>> = new Map();
 for (let line of input.split("\n")) {
     let splitLine = line.split("contain")
     let match = splitLine[0].match(/([a-z ]*) bags/)
-    let container = ""
     if (match)
-        container = match[1]
-    let contained = []
-    for (let bag of splitLine[1].matchAll(/ ([a-z ]*) bags?/g))
-        contained.push(bag[1])
-    bags.set(container, contained)
+        bags.set(match[1], Array.from(splitLine[1].matchAll(/ ([a-z ]*) bags?/g), bag => bag[1]))
 }
 let allFound : Array<string> = []
 let prevFound = ["shiny gold"]
