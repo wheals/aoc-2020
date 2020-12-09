@@ -10,3 +10,4 @@ Day 5: Ruby
 Day 6: awk
 Day 7: TypeScript
 Day 8: CoffeeScript
+Day 9: Dart
