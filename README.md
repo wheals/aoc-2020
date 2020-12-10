@@ -11,3 +11,4 @@ Day 6: awk
 Day 7: TypeScript
 Day 8: CoffeeScript
 Day 9: Dart
+Day 10 (part 1 only): Go
