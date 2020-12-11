@@ -1,0 +1,45 @@
+(def seating (apply merge (flatten
+        (map-indexed 
+            (fn [row line] (map-indexed
+                            (fn [column char] {(list row column) char})
+                            (vec line)
+                           )
+            )
+            (clojure.string/split-lines (slurp "input.txt"))
+        )
+        ))
+)
+(defn visible [coord seating]
+    (count (filter true?
+             (for [dx [-1 0 1] dy [-1 0 1] :when (not= dx dy 0)]
+                 (loop [x (+ (first coord) dx) y (+ (second coord) dy)]
+                    (case (seating (list x y))
+                    \# true
+                    \L false
+                    nil false
+                    \. (recur (+ x dx) (+ y dy))
+                    )
+                 )
+             )
+    ))
+)
+(defn new-seat [coord seating]
+    (case (seating coord)
+    \. \.
+    \L (if (= (visible coord seating) 0) \# \L)
+    \# (if (>= (visible coord seating) 5) \L \#)
+    )
+)
+(defn tick [old-seating]
+    (apply merge (map
+                  #(hash-map % (new-seat % old-seating))
+                  (keys old-seating))
+    )
+)
+(println (loop [old-seating seating]
+    (let [new-seating (tick old-seating)]
+        (if (= new-seating old-seating) (count (filter #(= % \#) (vals new-seating)))
+                                        (recur new-seating)
+        )
+    )
+))

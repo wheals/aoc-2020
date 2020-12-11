@@ -1,0 +1,44 @@
+(refer 'clojure.string :only ['split-lines])
+
+(def seating (apply merge (flatten
+        (map-indexed 
+            (fn [row line] (map-indexed
+                            (fn [column char] {(list row column) char})
+                            (vec line)
+                           )
+            )
+            (split-lines (slurp "input.txt"))
+        )
+        ))
+)
+(defn adjacents [coord]
+    (for [dx [-1 0 1] dy [-1 0 1] :when (not= dx dy 0)]
+        (list (+ (first coord) dx) (+ (second coord) dy))
+    )
+)
+(defn new-seat [coord seating]
+    (let [adj-occupied (count (filter #(= % \#) (map seating (adjacents coord))))]
+    (case (seating coord)
+    \. \.
+    \L (if (= adj-occupied 0) \# \L)
+    \# (if (>= adj-occupied 4) \L \#)
+    ))
+)
+(defn tick [old-seating]
+    (apply merge (map
+                  #(hash-map % (new-seat % old-seating))
+                  (keys old-seating))
+    )
+)
+(println (loop [old-seating seating]
+    (let [new-seating (tick old-seating)]
+        (if (= new-seating old-seating) (count (filter #(= % \#) (vals new-seating)))
+                                        (recur new-seating)
+        )
+    )
+))
+;(println seating)
+;(def newSeating (tick seating))
+;(println newSeating)
+;(println seating)
+
