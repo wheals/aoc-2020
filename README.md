@@ -13,3 +13,4 @@ Day 8: CoffeeScript
 Day 9: Dart
 Day 10 (part 1 only): Go
 Day 11: Clojure
+Day 12: Scala
