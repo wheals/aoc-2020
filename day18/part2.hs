@@ -16,7 +16,7 @@ parse ('*':xs) (f:fs) stack = let (result, cont) = parse xs fs stack
 
 parse ('(':xs) f stack = let (result, cont) = parse xs [] []
                          in parse cont (result:f) stack
-parse (')':xs) (f:fs) stack = (f, xs)
+parse (')':xs) (f:[]) stack = (f, xs)
 parse (' ':xs) f stack = parse xs f stack
 parse [] (f:[]) stack = (f, [])
 
