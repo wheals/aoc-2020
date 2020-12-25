@@ -20,3 +20,4 @@ Day 15: Common Lisp
 Day 16: Tcl
 Day 17: OCaml
 Day 18: Haskell
+Day 19: Erlang
